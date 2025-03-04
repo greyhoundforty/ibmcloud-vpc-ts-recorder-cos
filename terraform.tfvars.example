@@ -1,0 +1,11 @@
+# IBM Cloud API key
+ibmcloud_api_key = ""
+
+# Region where the resources will be created
+region = "ca-tor"
+
+# Name of an existing resource group. If not set, a new resource group will be created.
+existing_resource_group = ""
+
+# Name of an existing SSH key in the region. If not set, a new SSH key will be created.
+existing_ssh_key = ""
