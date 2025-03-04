@@ -6,7 +6,7 @@ resource "ibm_is_virtual_network_interface" "recorder" {
   subnet                    = ibm_is_subnet.demo.id
   resource_group            = module.resource_group.resource_group_id
   security_groups           = [ibm_is_vpc.demo.default_security_group]
-  tags                      = concat(var.tags, ["zone:${var.zone}"])
+  tags                      = local.tags
 }
 
 resource "ibm_is_instance" "recorder" {
@@ -22,8 +22,7 @@ resource "ibm_is_instance" "recorder" {
   }
 
   user_data = templatefile("./ts-instance.yaml", {
-    tailscale_tailnet_key        = tailscale_tailnet_key.lab.key
-    tailscale_advertised_subnets = join(",", module.lab_vpc.compute_subnet_cidrs)
+    tailscale_tailnet_key = tailscale_tailnet_key.lab_key.key
   })
 
   boot_volume {
@@ -33,7 +32,7 @@ resource "ibm_is_instance" "recorder" {
   primary_network_attachment {
     name = "${local.prefix}-eth0"
     virtual_network_interface {
-      id = ibm_is_virtual_network_interface.compute.id
+      id = ibm_is_virtual_network_interface.recorder.id
     }
   }
 

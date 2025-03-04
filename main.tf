@@ -1,7 +1,7 @@
 locals {
   prefix      = var.prefix != "" ? var.prefix : "${random_string.prefix.0.result}"
   ssh_key_ids = var.existing_ssh_key != "" ? [data.ibm_is_ssh_key.sshkey[0].id] : [ibm_is_ssh_key.generated_key[0].id]
-  zones = length(data.ibm_is_zones.regional.zones)
+  zones       = length(data.ibm_is_zones.regional.zones)
   vpc_zones = {
     for zone in range(local.zones) : zone => {
       zone = "${var.region}-${zone + 1}"
@@ -13,7 +13,7 @@ locals {
     "created_at:${local.deploy_timestamp}",
     "project:${local.prefix}",
     "region:${var.region}"
-    ]
+  ]
 }
 
 resource "time_static" "deploy_time" {
@@ -62,7 +62,7 @@ resource "tailscale_tailnet_key" "lab_key" {
   preauthorized = true
   expiry        = 3600
   description   = "Demo key for ${local.prefix}"
-  tags = ["tag:rst"]
+  tags          = ["tag:rst"]
 }
 
 

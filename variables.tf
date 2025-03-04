@@ -1,7 +1,7 @@
 variable "ibmcloud_api_key" {
-    description = "IBM Cloud API key"
-    type        = string
-    sensitive = true
+  description = "IBM Cloud API key"
+  type        = string
+  sensitive   = true
 }
 
 variable "tailscale_api_key" {

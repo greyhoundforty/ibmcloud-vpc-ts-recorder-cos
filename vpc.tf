@@ -28,7 +28,7 @@ resource "ibm_is_public_gateway" "demo" {
 
 resource "ibm_is_subnet" "demo" {
   name                     = "${local.prefix}-subnet-z1"
-  resource_group           = var.resource_group_id
+  resource_group           = module.resource_group.resource_group_id
   vpc                      = ibm_is_vpc.demo.id
   zone                     = local.vpc_zones[0].zone
   total_ipv4_address_count = "32"
